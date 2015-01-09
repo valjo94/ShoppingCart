@@ -9,7 +9,7 @@ public class Shop {
 	List<Item> catalogList;
 	ShoppingCart shoppingCart;
 
-	private static Scanner scan;
+
 
 	public List<Item> getCatalogList() {
 		return catalogList;
@@ -92,7 +92,7 @@ public class Shop {
 		System.out.println();
 	}
 
-	private static void printMenu() {
+	protected static void printMenu() {
 		System.out.println("\nMenu Options:");
 		System.out.println("1: Catalog Of Items;");
 		System.out.println("2: Add Item;");
@@ -102,7 +102,7 @@ public class Shop {
 
 	}
 
-	private Item getItem(String itemName) {
+	protected Item getItem(String itemName) {
 		for (Item currentItem : catalogList) {
 			if (currentItem.getName().equals(itemName)) {
 				return currentItem;
@@ -112,7 +112,7 @@ public class Shop {
 		return null;
 	}
 
-	private boolean isItemInCatalog(String itemName) {
+	protected boolean isItemInCatalog(String itemName) {
 
 		boolean check = false;
 		for (Item currentItem : catalogList) {
@@ -134,7 +134,7 @@ public class Shop {
 		return check;
 	}
 
-	private void removerFromCart(String nameToGet, int quantityToGet) {
+	protected void removerFromCart(String nameToGet, int quantityToGet) {
 		if (isItemInCart(nameToGet)) {
 			changeQuantityOfItem(nameToGet, quantityToGet);
 		} else {
@@ -166,7 +166,7 @@ public class Shop {
 
 	}
 
-	private void removeFromCart(String nameToGet) {
+	protected void removeFromCart(String nameToGet) {
 		Iterator<Entry<Item, Integer>> it = shoppingCart.cartItems.entrySet()
 				.iterator();
 		while (it.hasNext()) {
@@ -184,74 +184,6 @@ public class Shop {
 
 	}
 
-	public static void main(String[] args) {
-		Shop shop = new Shop();
-		shop.createDummyItems();
-
-		int option = 0;
-		scan = new Scanner(System.in);
-
-		while (option != 5) {
-			printMenu();
-			option = scan.nextInt();
-
-			String nameToGet;
-			int quantityToGet;
-			switch (option) {
-
-			case 1:
-				// System.out.println("Catalog Of Items clicked.\n");
-				shop.printCatalogOfItems();
-				break;
-			case 2:
-
-				// System.out.println("Add Item clicked.\n");
-				System.out.println("Type in item name without spaces.");
-				nameToGet = scan.next();
-
-				System.out.println("Type in quantity of the item.");
-				quantityToGet = scan.nextInt();
-
-				if (shop.isItemInCatalog(nameToGet)) {
-					Item i = shop.getItem(nameToGet);
-					shop.shoppingCart.addItemToCart(i, quantityToGet);
-				} else {
-					System.out.println("No such item.");
-				}
-				break;
-
-			case 3:
-				// System.out.println("Remove Item clicked.\n");
-				System.out
-						.println("Type in item name of the item you want to remove(without spaces).");
-				nameToGet = scan.next();
-				System.out
-						.println("Type in quantity to be removed( 0 for all).");
-				quantityToGet = scan.nextInt();
-
-				if (quantityToGet == 0) {
-					shop.removeFromCart(nameToGet);
-				} else {
-					shop.removerFromCart(nameToGet, quantityToGet);
-				}
-
-				break;
-
-			case 4:
-				// System.out.println("Show cart clicked.\n");
-				shop.shoppingCart.printCart();
-				break;
-
-			case 5:
-				// System.out.println("Exit clicked.\n");
-				break;
-
-			default:
-				System.out.println("\nInvalid Selection\n");
-				break;
-
-			}
-		}
-	}
+	
 
 }

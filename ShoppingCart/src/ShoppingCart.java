@@ -24,15 +24,19 @@ public class ShoppingCart {
 	}
 
 	public void printCart() {
-
-		Iterator<Entry<Item, Integer>> it = cartItems.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry<Item, Integer> pairs = (Entry<Item, Integer>) it.next();
-			if (pairs.getValue() == 0) {
-				it.remove();
-			} else {
-				pairs.getKey().printItem();
-				System.out.println(", Quantity: " + pairs.getValue());
+		if (cartItems.isEmpty()) {
+			System.out.println("Empty cart.");
+		} else {
+			Iterator<Entry<Item, Integer>> it = cartItems.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry<Item, Integer> pairs = (Entry<Item, Integer>) it
+						.next();
+				if (pairs.getValue() == 0) {
+					it.remove();
+				} else {
+					pairs.getKey().printItem();
+					System.out.println(", Quantity: " + pairs.getValue());
+				}
 			}
 		}
 	}
